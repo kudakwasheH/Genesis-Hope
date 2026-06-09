@@ -37,13 +37,12 @@ return new class extends Migration
         Schema::create('failed_jobs', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
-            $table->string('connection');
-            $table->string('queue');
+            $table->string('connection', 191);
+            $table->string('queue', 191);
             $table->longText('payload');
             $table->longText('exception');
             $table->timestamp('failed_at')->useCurrent();
-
-            $table->index(['connection', 'queue', 'failed_at']);
+            // Removed compound index: exceeds InfinityFree's 1000-byte MySQL key limit
         });
     }
 

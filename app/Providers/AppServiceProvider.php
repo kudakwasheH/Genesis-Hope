@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        \Illuminate\Support\Facades\Schema::defaultStringLength(191);
         try {
             if (\Illuminate\Support\Facades\Schema::hasTable('settings')) {
                 $siteSettings = \App\Models\Setting::pluck('value', 'key')->toArray();
