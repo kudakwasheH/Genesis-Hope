@@ -30,10 +30,18 @@ class GoogleController extends Controller
     public function handleGoogleCallback(): RedirectResponse
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $driver = Socialite::driver('google');
+
+            // Disable SSL verification in local environment to bypass Windows cURL SSL certificate issues
+            if (app()->environment('local')) {
+                $driver->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
+            }
+
+            $googleUser = $driver->user();
         } catch (Exception $e) {
+            logger()->error('Google Auth Error: ' . $e->getMessage(), ['exception' => $e]);
             return redirect(route('login'))->withErrors([
-                'email' => 'Unable to authenticate with Google. Please try again.',
+                'email' => 'Unable to authenticate with Google: ' . $e->getMessage(),
             ]);
         }
 
