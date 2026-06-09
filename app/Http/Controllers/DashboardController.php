@@ -88,10 +88,15 @@ class DashboardController extends Controller
             $statusData[] = $statusCounts[$status] ?? 0;
         }
 
-        // Bookings over the last 6 months (SQLite format support using strftime)
+        // Bookings over the last 6 months (SQLite / MySQL format support)
+        $isSqlite = DB::connection()->getDriverName() === 'sqlite';
         $monthlyBookings = Appointment::select(
-                DB::raw("strftime('%m', appointment_date) as month"), 
-                DB::raw("strftime('%Y', appointment_date) as year"),
+                $isSqlite 
+                    ? DB::raw("strftime('%m', appointment_date) as month") 
+                    : DB::raw("DATE_FORMAT(appointment_date, '%m') as month"),
+                $isSqlite 
+                    ? DB::raw("strftime('%Y', appointment_date) as year") 
+                    : DB::raw("DATE_FORMAT(appointment_date, '%Y') as year"),
                 DB::raw('count(*) as total')
             )
             ->where('appointment_date', '>=', Carbon::today()->subMonths(6)->startOfMonth())
