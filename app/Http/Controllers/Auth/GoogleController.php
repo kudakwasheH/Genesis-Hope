@@ -32,10 +32,8 @@ class GoogleController extends Controller
         try {
             $driver = Socialite::driver('google');
 
-            // Disable SSL verification in local environment to bypass Windows cURL SSL certificate issues
-            if (app()->environment('local')) {
-                $driver->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
-            }
+            // Disable SSL verification to bypass Windows & shared hosting cURL SSL certificate issues
+            $driver->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
 
             $googleUser = $driver->user();
         } catch (Exception $e) {
