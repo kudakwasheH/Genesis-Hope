@@ -7,6 +7,7 @@
 
     <title>@yield('title', $siteSettings['site_name'] ?? 'Genesis Goodhope Population Health')</title>
     <meta name="description" content="@yield('meta_description', 'Genesis Goodhope Population Health - Empowering health and wellness in Harare, Zimbabwe. Book consultations, manage wellness, chronic care.')">
+    <link rel="shortcut icon" href="{{ asset('images/logo.jpg') }}" type="image/jpeg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

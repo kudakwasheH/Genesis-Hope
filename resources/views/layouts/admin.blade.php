@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Dashboard - {{ $siteSettings['site_name'] ?? 'Genesis Goodhope Population Health' }}</title>
+    <link rel="shortcut icon" href="{{ asset('images/logo.jpg') }}" type="image/jpeg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
