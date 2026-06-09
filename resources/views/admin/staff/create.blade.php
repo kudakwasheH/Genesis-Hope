@@ -44,20 +44,12 @@
                 @error('role') <p class="text-xs text-rose-500">{{ $message }}</p> @enderror
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <!-- Password -->
-                <div class="space-y-2">
-                    <label for="password" class="text-sm font-bold text-slate-700 dark:text-slate-300">Default Password</label>
-                    <input type="password" name="password" id="password" required placeholder="Min 8 characters"
-                           class="w-full rounded-2xl border-slate-200 dark:border-slate-600 dark:bg-slate-900 focus:border-teal-500 focus:ring focus:ring-teal-200 dark:text-white text-sm px-4 py-3 bg-slate-50">
-                    @error('password') <p class="text-xs text-rose-500">{{ $message }}</p> @enderror
-                </div>
-                
-                <!-- Password Confirmation -->
-                <div class="space-y-2">
-                    <label for="password_confirmation" class="text-sm font-bold text-slate-700 dark:text-slate-300">Confirm Password</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" required placeholder="Re-type password"
-                           class="w-full rounded-2xl border-slate-200 dark:border-slate-600 dark:bg-slate-900 focus:border-teal-500 focus:ring focus:ring-teal-200 dark:text-white text-sm px-4 py-3 bg-slate-50">
+            <!-- Info Notice about Password generation -->
+            <div class="bg-teal-50 border border-teal-100 rounded-2xl p-4 text-xs font-semibold text-slate-600 flex items-start space-x-3 dark:bg-teal-950/20 dark:border-teal-500/20 dark:text-teal-400">
+                <i class="fa-solid fa-circle-info text-teal-600 dark:text-teal-500 mt-0.5 text-sm"></i>
+                <div class="space-y-1">
+                    <p class="font-bold text-slate-800 dark:text-slate-300 text-sm">One-Time Password Setup</p>
+                    <p>A secure 12-character one-time password will be automatically generated. The account details and login instructions will be sent immediately to the registered email address.</p>
                 </div>
             </div>
 

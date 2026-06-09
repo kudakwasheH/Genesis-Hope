@@ -6,6 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use App\Mail\StaffCreatedMail;
 
 class StaffController extends Controller
 {
@@ -26,17 +29,20 @@ class StaffController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'role' => 'required|string|in:admin,staff',
-            'password' => 'required|string|min:8|confirmed',
         ]);
 
-        User::create([
+        $otp = Str::random(12);
+
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($otp),
         ]);
 
-        return redirect()->route('admin.staff.index')->with('success', 'Staff member added successfully.');
+        Mail::to($user->email)->send(new StaffCreatedMail($user, $otp));
+
+        return redirect()->route('admin.staff.index')->with('success', 'Staff member added successfully. Credentials with a one-time password have been sent to their email.');
     }
 
     public function edit(User $staff)
